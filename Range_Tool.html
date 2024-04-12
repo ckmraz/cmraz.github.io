@@ -1,0 +1,217 @@
+
+<table>
+    <tr>
+        <td>Start value</td>
+        <td>End value</td>
+        <td></td>
+        <td>Summary</td>
+        <td></td>
+    </tr>
+	<tr>
+        <td><input type="time" id="timeOne" name="timeOne" value="00:00:01" step="1" onchange="timeFunction()"></td>
+		<td><input type="time" id="timeTwo" name="timeTwo" value="00:00:01" step="1" onchange="timeFunction()"></td>      
+        <td style="text-align:right;"><p id="result0"></p></td>
+        <td><p id="result0_met"></p></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="odo_start" placeholder="VDM_Odometer_Value"></td>
+        <td><input type="text" id="odo_end" placeholder="VDM_Odometer_Value"></td>
+        <td style="text-align:right;"><p id="result1"></p></td>
+        <td><p id="result1_met"></p></td>
+        <td><p id="result1_imp"></p></td>
+    </tr>
+	<tr>
+        <td><input type="text" id="SOC_SOE_start" placeholder="SOC_from_soe_real_cloud"></td>
+        <td><input type="text" id="SOC_SOE_end" placeholder="SOC_from_soe_real_cloud"></td>
+        <td style="text-align:right;"><p id="result2"></p></td>
+        <td><p id="result2_met"></p></td>
+        <td><p id="result2_imp"></p></td>
+    </tr>
+	<tr>
+        <td><input type="text" id="E_SOC_start" placeholder="E_SOE_pack_user_real"></td>
+        <td><input type="text" id="E_SOC_end" placeholder="E_SOE_pack_user_real"></td>
+        <td style="text-align:right;"><p id="result3"></p></td>
+        <td><p id="result3_met"></p></td>
+        <td><p id="result3_imp"></p></td>
+    </tr>
+	<tr>
+        <td><input type="text" id="E_total_start" placeholder="E_total_energy_pack_user"></td>
+		<td></td>
+        <td style="text-align:right;"><p id="result4"></p></td>
+        <td><p id="result4_met"></p></td>  
+    </tr>
+	<tr>
+        <td><input type="text" id="vehicle_range_start" placeholder="vehicle_range_value"></td>
+        <td><input type="text" id="vehicle_range_end" placeholder="vehicle_range_value"></td>
+        <td style="text-align:right;"><p id="result5"></p></td>
+        <td><p id="result5_met"></p></td>
+        <td><p id="result5_imp"></p></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="total_start" placeholder="total_cycle_energy_consumption"></td>
+        <td><input type="text" id="total_end" placeholder="total_cycle_energy_consumption"></td>
+        <td style="text-align:right;"><p id="result6"></td>
+        <td><p id="result6_met"></p></td>
+        <td><p id="result6_imp"></p></td>
+        <td><p id="result6_imp2"></p></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="prop_start" placeholder="propulsion_energy_consumption"></td>
+        <td><input type="text" id="prop_end" placeholder="propulsion_energy_consumption"></td>
+        <td style="text-align:right;"><p id="result7"></td>
+        <td><p id="result7_met"></p></td>
+        <td><p id="result7_imp"></p></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="thermal_start" placeholder="thermal_hv_energy_consumption"></td>
+        <td><input type="text" id="thermal_end" placeholder="thermal_hv_energy_consumption"></td>
+        <td style="text-align:right;"><p id="result8"></td>
+        <td><p id="result8_met"></p></td>
+        <td><p id="result8_imp"></p></td>
+    </tr>
+    <tr>
+        <td><input type="text" id="lvm_start" placeholder="lvm_energy_consumption"></td>
+        <td><input type="text" id="lvm_end" placeholder="lvm_energy_consumption"></td>
+        <td style="text-align:right;"><p id="result9"></td>
+        <td><p id="result9_met"></p></td>
+        <td><p id="result9_imp"></p></td>
+    </tr>
+	<tr>
+		<td></td>
+        <td></td>
+        <td style="text-align:right;"><p id="result10"></td>
+        <td><p id="result10_met"></p></td>
+        <td><p id="result10_imp"></p></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td style="text-align:right;"><p id="result11"></td>
+        <td><p id="result11_met"></p></td>
+        <td><p id="result11_imp"></p></td>
+		
+    </tr>
+	<tr>
+        <td></td>
+        <td></td>
+        <td style="text-align:right;"><p id="result12"></td>
+        <td><p id="result12_met"></p></td>
+        <td><p id="result12_imp"></p></td>
+    </tr>
+    </table>
+    <button onclick="estimate_range()">Calculate</button>
+    <p><br/></p>
+    
+    
+    
+        <script>
+            function estimate_range() {
+
+
+		
+               
+				
+				
+				// Time
+				const getSeconds = s => s.split(":").reduce((acc, curr) => acc * 60 + +curr, 0);
+				var seconds1 = getSeconds(document.getElementById("timeOne").value);
+				var seconds2 = getSeconds(document.getElementById("timeTwo").value);
+				var res = Math.abs(seconds2 - seconds1);
+				var hours = Math.floor(res / 3600);
+				var minutes = Math.floor(res % 3600 / 60);
+				var seconds = res % 60;
+				document.getElementById("result0_met").innerHTML = hours + ":" + minutes + ":" + seconds;	
+				var min = (seconds2 - seconds1) / 3600;
+				// Row Titles
+                
+				document.getElementById("result0").innerText = "Drive Time:";
+				document.getElementById("result1").innerText = "Distance Driven:";
+				document.getElementById("result2").innerText = "Avrage Speed:";
+				document.getElementById("result3").innerText = "Efficiency:";	
+				document.getElementById("result4").innerText = "Range Est Efficiency:";
+				document.getElementById("result5").innerText = "Vehicle Est Range:";
+				document.getElementById("result6").innerText = "Vehicle Est Range loss:";
+                		document.getElementById("result7").innerText = "SOC Used:";
+				document.getElementById("result8").innerText = "Total Consumption:";
+               			document.getElementById("result9").innerText = "Propulsion:";
+               			document.getElementById("result10").innerText = "Thermal:";
+              			document.getElementById("result11").innerText = "LVM:";
+                		document.getElementById("result12").innerText = "Other:";
+
+                // Start Values
+				var odo_start     	   = document.getElementById("odo_start").value;
+				var SOC_SOE_start  	   = document.getElementById("SOC_SOE_start").value;
+				var E_SOC_start            = document.getElementById("E_SOC_start").value;
+				var e_total_met	           = document.getElementById("E_total_start").value;
+				var vehicle_range_start    = document.getElementById("vehicle_range_start").value;
+                		var total_start  	   = document.getElementById("total_start").value;
+                		var prop_start   	   = document.getElementById("prop_start").value;
+                		var thermal_start 	   = document.getElementById("thermal_start").value;
+				var lvm_start              = document.getElementById("lvm_start").value;
+				                
+				
+                // End Values
+				var odo_end     	   = document.getElementById("odo_end").value;
+				var SOC_SOE_end  	   = document.getElementById("SOC_SOE_end").value;
+				var E_SOC_end              = document.getElementById("E_SOC_end").value;				
+				var vehicle_range_end      = document.getElementById("vehicle_range_end").value;
+                		var total_end   	   = document.getElementById("total_end").value;
+                		var prop_end      	   = document.getElementById("prop_end").value;
+               			var thermal_end   	   = document.getElementById("thermal_end").value;
+                		var lvm_end      	   = document.getElementById("lvm_end").value;
+				
+                
+                // Metric	
+				
+                		var distance_raw   	= (odo_end - odo_start) / 1000;
+               			var distance_met   	= Math.round( (distance_raw) * 10) / 10;
+				var soc_soe_met		= Math.round( (SOC_SOE_start - SOC_SOE_end) * 10) / 10;
+				var e_soe_met		= Math.round( (E_SOC_start - E_SOC_end) * 10) / 10;			
+				var vehcilerange_met    = (vehicle_range_start - vehicle_range_end);
+                		var total_met 	        = Math.round( (total_end - total_start) * 10) / 10;               
+                		var prop_met  		= Math.round( (prop_end - prop_start) * 10) / 10;
+                		var thermal_met 	= Math.round( (thermal_end - thermal_start) * 10) / 10;              
+                		var lvm_met             = Math.round( (lvm_end - lvm_start) * 10) / 10;
+                		var other_met           = Math.round( (total_met - prop_met - thermal_met - lvm_met) * 10) / 10;
+				var ave_speed_met 	= Math.round( (distance_met / min) * 10) / 10;
+				var efficiency_met	= Math.round( ( (e_soe_met * 1000) / distance_met) *100) / 1000;
+				var range_eff_met	= Math.round( ( (distance_met / vehcilerange_met) * 100) * 10) / 10;
+				var range_loss_met	= Math.round( (vehcilerange_met - distance_met) * 10) / 10;
+				
+				
+                
+               			document.getElementById("result1_met").innerText = distance_met   + " km";
+                		document.getElementById("result2_met").innerText = ave_speed_met  + " kph";
+                		document.getElementById("result3_met").innerText = efficiency_met  + " kWh/100 km";
+                		document.getElementById("result4_met").innerText = range_eff_met    + " %";
+                		document.getElementById("result5_met").innerText = vehcilerange_met    + " km";
+				document.getElementById("result6_met").innerText = range_loss_met   + " km";
+				document.getElementById("result7_met").innerText = soc_soe_met    + " %";
+				document.getElementById("result8_met").innerText = e_soe_met    + " kWh";
+				document.getElementById("result9_met").innerText = prop_met    + " kWh";
+				document.getElementById("result10_met").innerText = thermal_met    + " kWh";
+				document.getElementById("result11_met").innerText = lvm_met    + " kWh";
+				document.getElementById("result12_met").innerText = other_met    + " kWh";
+                
+                // Imperal: Wh per mile
+                		var distance_imp  	 = Math.round( (distance_raw) * 0.621371 * 10) / 10;
+				var vehicle_range_imp	 = Math.round( (vehicle_range_start - vehicle_range_end) * 0.621371 * 10) / 10;
+				var ave_speed_imp	 = (distance_imp / min);
+				var range_loss_imp	 =	Math.round( (vehicle_range_imp - distance_imp)  * 10) / 10;
+				var efficiency_imp	 = ( ( (e_soe_met * 1000) / distance_imp)  * 100) / 1000;
+                
+                		document.getElementById("result1_imp").innerText = "| " + distance_imp    + " Mile";
+                		document.getElementById("result2_imp").innerText = "| " + ave_speed_imp  + " mph";
+				document.getElementById("result3_imp").innerText = "| " + efficiency_imp  + " kWh/100 mi";	
+				
+                		document.getElementById("result5_imp").innerText = "| " + vehicle_range_imp    + " Mile";
+				document.getElementById("result6_imp").innerText = "| " + range_loss_imp    + " Mile";
+				
+				
+                
+                
+                
+            }
+        </script>
+ 
+  
