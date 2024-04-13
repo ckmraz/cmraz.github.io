@@ -129,7 +129,7 @@
 				document.getElementById("result2").innerText = "Avrage Speed:";
 				document.getElementById("result3").innerText = "Efficiency:";	
 				document.getElementById("result4").innerText = "Range Est Efficiency:";
-				document.getElementById("result5").innerText = "Vehicle Est Range:";
+				document.getElementById("result5").innerText = "Vehicle Est Range Used:";
 				document.getElementById("result6").innerText = "Vehicle Est Range loss:";
                 		document.getElementById("result7").innerText = "SOC Used:";
 				document.getElementById("result8").innerText = "Total Consumption:";
@@ -196,7 +196,7 @@
                 // Imperal: Wh per mile
                 		var distance_imp  	 = Math.round( (distance_raw) * 0.621371 * 10) / 10;
 				var vehicle_range_imp	 = Math.round( (vehicle_range_start - vehicle_range_end) * 0.621371 * 10) / 10;
-				var ave_speed_imp	 = (distance_imp / min);
+				var ave_speed_imp	 = MAth.round( (distance_imp / min) * 10) / 10;
 				var range_loss_imp	 =	Math.round( (vehicle_range_imp - distance_imp)  * 10) / 10;
 				var efficiency_imp	 = ( ( (e_soe_met * 1000) / distance_imp)  * 100) / 1000;
                 
