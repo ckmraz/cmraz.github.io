@@ -196,7 +196,7 @@
                 // Imperal: Wh per mile
                 		var distance_imp  	 = Math.round( (distance_raw) * 0.621371 * 10) / 10;
 				var vehicle_range_imp	 = Math.round( (vehicle_range_start - vehicle_range_end) * 0.621371 * 10) / 10;
-				var ave_speed_imp	 = MAth.round( (distance_imp / min) * 10) / 10;
+				var ave_speed_imp	 = (distance_imp / min);
 				var range_loss_imp	 = Math.round( (vehicle_range_imp - distance_imp)  * 10) / 10;
 				var efficiency_imp	 = ( ( (e_soe_met * 1000) / distance_imp)  * 100) / 1000;
                 
